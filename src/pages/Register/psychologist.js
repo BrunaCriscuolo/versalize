@@ -1,5 +1,5 @@
 
-import { LayoutRegister } from '../../components/templates/Register';
+import { LayoutRegister } from '../../templates/Register/register';
 import { FormRegister } from '../../components/organisms/FormRegister/psychologist';
 
 const PageRegisterPsychologist = () => {

@@ -1,7 +1,3 @@
-import { Menu as M } from 'antd';
+import { Menu } from 'antd';
 
-export const MenuItem = ({ key, children }) => (
-  <M.Item key={key}>
-    {children}
-  </M.Item>
-);
+export const { Item: MenuItem } = Menu;

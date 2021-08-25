@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import { Colors, Shadows } from '../../../../variables';
 
-const { gray200 } = Colors;
-const { shadowLight04 } = Shadows;
+const { white, gray200 } = Colors;
+const { shadowLight04, shadowLightCard } = Shadows;
 
 export const Box = styled.div`
   background-color: ${gray200};
@@ -16,5 +16,9 @@ export const Box = styled.div`
 
   .box__title{
     text-align: center;
+  }
+  &.box__form{
+    background-color: ${white};
+    box-shadow: ${shadowLightCard};
   }
 `;

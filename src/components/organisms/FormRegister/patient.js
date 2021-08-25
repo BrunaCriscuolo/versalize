@@ -5,17 +5,19 @@ import { Form, FormItem } from '../../atoms/Form/form';
 import { Radio, RadioGroup } from '../../atoms/Radio/radio';
 import { Title, Text } from '../../atoms/Typography/typography';
 import { Tabs, TabPane } from '../../atoms/Tabs/tabs';
-import { Input, InputMask, InputPassword } from '../../atoms/Input/input';
+import { Input, InputMask } from '../../atoms/Input/input';
 import { Slider } from '../../atoms/Slider/slider';
 import { DatePicker } from '../../atoms/DatePicker/datepicker';
-import { TimePicker } from '../../atoms/TimePicker/timePicker';
 import { Tooltip } from '../../atoms/Tooltip/tooltip';
 import { Checkbox } from '../../atoms/Checkbox/checkbox';
+import { Select, Option } from '../../atoms/Select/select';
 import { Upload } from '../../molecules/Upload/upload';
 import { TextIcon } from '../../molecules/TypographyIcon/textIcon';
 
 import { useForm } from '../../../hooks/form';
 import { Icons } from '../../../variables';
+import { gender, daysWeek } from '../../../utils/tuples';
+import { disabledBirthDay } from '../../../utils/date';
 
 import { validator } from './validations';
 import { CheckboxGroup } from './styles';
@@ -27,17 +29,19 @@ import {
   optionEducation
 } from './utils';
 
-export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
+
+export const FormPatient = ({ onSubmitRegister, handleChangeChecks, loading }) => {
   const [form] = useForm();
 
   const { Info } = Icons;
   const {
     fullName,
-    password,
-    confirmPassword,
     phone,
     document,
-    birthday
+    birthday,
+    email,
+    day,
+    hour
   } = validator;
 
   return (
@@ -59,34 +63,20 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
       >
         <Input placeholder='-----' />
       </FormItem>
-
-      <Row gutter={[8]}>
-        <Col span={12} xs={24} sm={12}>
-          <FormItem
-            label='Senha'
-            name='password'
-            rules={password}
-          >
-            <InputPassword placeholder='-----' />
-          </FormItem>
-        </Col>
-        <Col span={12} xs={24} sm={12}>
-          <FormItem
-            label='Confirmar senha'
-            name='confirmPassword'
-            rules={confirmPassword}
-          >
-            <InputPassword placeholder='-----' />
-          </FormItem>
-        </Col>
-      </Row>
+      <FormItem
+        label='E-mail'
+        name='email'
+        rules={email}
+      >
+        <Input placeholder='-----' />
+      </FormItem>
 
       <FormItem
         label='Celular'
         name='phone'
         rules={phone}
       >
-        <Input placeholder='-----' />
+        <InputMask mask='(11)11111-1111' />
       </FormItem>
 
       <Row gutter={[8]}>
@@ -105,7 +95,7 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
             name='birthday'
             rules={birthday}
           >
-            <DatePicker placeholder='-----' />
+            <DatePicker placeholder='-----' disabledDate={disabledBirthDay} />
           </FormItem>
         </Col>
       </Row>
@@ -114,20 +104,13 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
         label='Gênero'
         name='gender'
       >
-        <RadioGroup name='radiogroup' defaultValue='others'>
+        <RadioGroup name='radiogroup' defaultValue='NaoInformado'>
           <Row gutter={[16]}>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='masculine'>Masculino</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='feminine'>Feminino</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='nonBinary'>Não binário</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='others'>Prefiro não informar</Radio>
-            </Col>
+            {gender.map(item => (
+              <Col span={6} xs={24} sm={12} lg={item.value === 'NaoInformado' ? 12 : 6}>
+                <Radio value={item.value}>{item.label}</Radio>
+              </Col>
+            ))}
           </Row>
         </RadioGroup>
       </FormItem>
@@ -142,7 +125,12 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
               <Title level={5}>Laudo médico</Title>
               <Row>
                 <Col span={12} xs={24} sm={12}>
-                  <Checkbox label='Ja possui diagnostico?' />
+                  <FormItem
+                    name='medicalReport'
+                  >
+                    <Checkbox label='Ja possui diagnostico?' />
+                  </FormItem>
+
                 </Col>
                 <Col span={12} xs={24} sm={12}>
                   <Tooltip title='Lorem ipsum dolor sit amet.'>
@@ -189,7 +177,12 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
       <Title level={5}>Qual o valor ideal da sua sessão?</Title>
 
       <Space size='large'>
-        <Slider marks={{ 0: 'R$ 80', 100: 'R$ 300' }} defaultValue={0} />
+        <FormItem
+          name='value'
+        >
+          <Slider marks={{ 80: 'R$ 80', 300: 'R$ 300' }} defaultValue={80} min={80} max={300} />
+        </FormItem>
+
         <Title level={5}>Escolha o melhor dia e horário para sua sessão</Title>
       </Space>
 
@@ -198,23 +191,26 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
           <FormItem
             label='Dia'
             name='day'
+            rules={day}
           >
-            <DatePicker />
+            <Select placeholder='-----'>
+              {daysWeek.map(item => (
+                <Option key={item.value}>{item.label}</Option>
+              ))}
+
+            </Select>
           </FormItem>
         </Col>
         <Col span={12} xs={24} sm={12}>
           <FormItem
             label='Horário'
             name='hour'
+            rules={hour}
           >
-            <TimePicker />
+            <InputMask mask='11:11' />
           </FormItem>
         </Col>
       </Row>
-
-
-
-
 
       <Row>
         <Col span={12} xs={24} sm={12}>
@@ -228,6 +224,7 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks }) => {
             block
             htmlType='submit'
             type='primary'
+            loading={loading}
           />
         </Col>
       </Row>

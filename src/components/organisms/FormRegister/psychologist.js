@@ -4,7 +4,7 @@ import { Button } from '../../atoms/Button/button';
 import { Form, FormItem } from '../../atoms/Form/form';
 import { Radio, RadioGroup } from '../../atoms/Radio/radio';
 import { Title, Text } from '../../atoms/Typography/typography';
-import { Input, InputMask, InputPassword } from '../../atoms/Input/input';
+import { Input, InputMask } from '../../atoms/Input/input';
 import { DatePicker } from '../../atoms/DatePicker/datepicker';
 import { Slider } from '../../atoms/Slider/slider';
 import { Checkbox } from '../../atoms/Checkbox/checkbox';
@@ -14,6 +14,8 @@ import { Image } from '../../atoms/Image/image';
 import { Icon } from '../../atoms/Icon/icon';
 
 import { useForm } from '../../../hooks/form';
+import { disabledBirthDay } from '../../../utils/date';
+import { gender, specialty } from '../../../utils/tuples';
 
 import { validator } from './validations';
 import { Icons } from '../../../variables';
@@ -23,8 +25,6 @@ export const FormRegister = ({ onSubmitRegister }) => {
 
   const {
     fullName,
-    password,
-    confirmPassword,
     phone,
     document,
     birthday,
@@ -47,39 +47,27 @@ export const FormRegister = ({ onSubmitRegister }) => {
         <Input placeholder='-----' />
       </FormItem>
       <FormItem
+        label='Nome social'
+        name='socialName'
+      >
+        <Input placeholder='-----' />
+      </FormItem>
+      <FormItem
         label='E-mail'
         name='email'
         rules={email}
       >
         <Input placeholder='-----' />
       </FormItem>
-      <Row gutter={[8]}>
-        <Col span={12} xs={24} sm={12}>
-          <FormItem
-            label='Senha'
-            name='password'
-            rules={password}
-          >
-            <InputPassword placeholder='-----' />
-          </FormItem>
-        </Col>
-        <Col span={12} xs={24} sm={12}>
-          <FormItem
-            label='Confirmar senha'
-            name='confirmPassword'
-            rules={confirmPassword}
-          >
-            <InputPassword placeholder='-----' />
-          </FormItem>
-        </Col>
-      </Row>
+
       <FormItem
         label='Celular'
         name='phone'
         rules={phone}
       >
-        <Input placeholder='-----' />
+        <InputMask mask='(11)11111-1111' />
       </FormItem>
+
       <Row gutter={[8]}>
         <Col span={12} xs={24} sm={12}>
           <FormItem
@@ -96,31 +84,26 @@ export const FormRegister = ({ onSubmitRegister }) => {
             name='birthday'
             rules={birthday}
           >
-            <DatePicker placeholder='-----' />
+            <DatePicker placeholder='-----' disabledDate={disabledBirthDay} />
           </FormItem>
         </Col>
       </Row>
+
       <FormItem
         label='Gênero'
         name='gender'
       >
-        <RadioGroup name='genderRadio' defaultValue='others'>
+        <RadioGroup name='radiogroup' defaultValue='NaoInformado'>
           <Row gutter={[16]}>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='masculine'>Masculino</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='feminine'>Feminino</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='nonBinary'>Não binário</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='others'>Prefiro não informar</Radio>
-            </Col>
+            {gender.map(item => (
+              <Col span={6} xs={24} sm={12} lg={item.value === 'NaoInformado' ? 12 : 6}>
+                <Radio value={item.value}>{item.label}</Radio>
+              </Col>
+            ))}
           </Row>
         </RadioGroup>
       </FormItem>
+
       <FormItem
         label='Alinhamento CRP'
         name='crpCode'
@@ -133,18 +116,11 @@ export const FormRegister = ({ onSubmitRegister }) => {
       >
         <RadioGroup name='specialtyRadio' defaultValue='others'>
           <Row gutter={[16]}>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='graduation'>Graduação</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='postgraduate'>Pós graduação</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='master'>Mestrado</Radio>
-            </Col>
-            <Col span={6} xs={24} sm={12} lg={6}>
-              <Radio value='doctorate'>Doutorado</Radio>
-            </Col>
+            {specialty.map(item => (
+              <Col span={6} xs={24} sm={12} lg={6}>
+                <Radio value={item.value}>{item.label}</Radio>
+              </Col>
+            ))}
           </Row>
         </RadioGroup>
       </FormItem>
@@ -183,10 +159,16 @@ export const FormRegister = ({ onSubmitRegister }) => {
         </Select>
       </FormItem>
 
+
       <Title level={5}>Valor por sessão</Title>
 
-      <Space>
-        <Slider marks={{ 0: 'R$ 80', 100: 'R$ 300' }} defaultValue={0} />
+      <Space size='large'>
+        <FormItem
+          name='value'
+        >
+          <Slider marks={{ 80: 'R$ 80', 300: 'R$ 300' }} defaultValue={80} min={80} max={300} />
+        </FormItem>
+
         <Title level={5}>Deseja fazer triagem gratuita?</Title>
       </Space>
 

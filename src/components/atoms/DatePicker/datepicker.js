@@ -1,10 +1,14 @@
-import { DatePicker as D } from 'antd';
+import dateFnsGenerateConfig from 'rc-picker/lib/generate/dateFns';
+import generatePicker from 'antd/es/date-picker/generatePicker';
 
-export const DatePicker = ({ onChange, placeholder, value, format = 'DD/MM/YYYY' }) => (
+const D = generatePicker(dateFnsGenerateConfig);
+
+export const DatePicker = ({ onChange, placeholder, value, format = 'DD/MM/YYYY', disabledDate }) => (
   <D
     onChange={onChange}
     placeholder={placeholder}
     value={value}
     format={format}
+    disabledDate={disabledDate}
   />
 );

@@ -1,16 +1,16 @@
 
-import { Space } from '../../atoms/Space/space';
-import { Layout } from '../../atoms/Layout/layout';
-import { Header } from '../../atoms/Header/header';
-import { Content } from '../../atoms/Content/content';
-import { Row, Col } from '../../atoms/Grid/grid';
-import { Text, Title } from '../../atoms/Typography/typography';
-import { Footer } from '../../molecules/Footer/footer';
-import { Button } from '../../atoms/Button/button';
-import { Image } from '../../atoms/Image/image';
-import { TextIcon } from '../../molecules/TypographyIcon/textIcon';
+import { Space } from '../../components/atoms/Space/space';
+import { Layout } from '../../components/atoms/Layout/layout';
+import { Header } from '../../components/atoms/Header/header';
+import { Content } from '../../components/atoms/Content/content';
+import { Row, Col } from '../../components/atoms/Grid/grid';
+import { Text, Title } from '../../components/atoms/Typography/typography';
+import { Footer } from '../../components/molecules/Footer/footer';
+import { Button } from '../../components/atoms/Button/button';
+import { Image } from '../../components/atoms/Image/image';
+import { TextIcon } from '../../components/molecules/TypographyIcon/textIcon';
 
-import { Icons } from '../../../variables';
+import { Icons } from '../../variables';
 
 export const LayoutRegister = ({ form, title, subtitle }) => {
   const { Question, ArrowLeft } = Icons;

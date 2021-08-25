@@ -1,13 +1,15 @@
-import { Row, Col } from '../../atoms/Grid/grid';
-import { BoxLogin } from '../../organisms/Box/login';
-import { BoxRegister } from '../../organisms/Box/register';
-import { Top } from '../../molecules/Top/top';
-import { Footer } from '../../molecules/Footer/footer';
-import { Layout } from '../../atoms/Layout/layout';
-import { Content } from '../../atoms/Content/content';
+import { Row, Col } from '../../components/atoms/Grid/grid';
+import { BoxLogin } from '../../components/organisms/Box/login';
+import { BoxRegister } from '../../components/organisms/Box/register';
+import { Top } from '../../components/molecules/Top/top';
+import { Footer } from '../../components/molecules/Footer/footer';
+import { Layout } from '../../components/atoms/Layout/layout';
+import { Content } from '../../components/atoms/Content/content';
 
 export const Login = ({
   onSubmitLogin,
+  loading,
+  form
 }) => {
   const image = {
     src: './teste',
@@ -33,6 +35,8 @@ export const Login = ({
           <Col span={6} xs={22} sm={15} lg={9} xl={8} xxl={6} >
             <BoxLogin
               onSubmitLogin={onSubmitLogin}
+              loading={loading}
+              form={form}
             />
           </Col>
           <Col span={6} xs={22} sm={15} lg={9} xl={8} xxl={6} >

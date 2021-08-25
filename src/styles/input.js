@@ -27,15 +27,4 @@ export const InputStyles = createGlobalStyle`
   .ant-picker{
     display: block;
   }
-  .ant-input-password{
-    input{
-      &.ant-input{
-        box-shadow: none;
-      }
-    }
-  }
-  .ant-select-selector{
-    padding: 0.4rem!important;
-    display: block;
-  }
 `;

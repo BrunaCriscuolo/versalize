@@ -1,4 +1,4 @@
-import { Select as S } from 'antd';
+import { Select as S } from './styles';
 
 export const Select = ({ mode, onChange, placeholder, children }) => (
   <S
