@@ -11,7 +11,7 @@ import { DatePicker } from '../../atoms/DatePicker/datepicker';
 import { Tooltip } from '../../atoms/Tooltip/tooltip';
 import { Checkbox } from '../../atoms/Checkbox/checkbox';
 import { Select, Option } from '../../atoms/Select/select';
-import { Upload } from '../../molecules/Upload/upload';
+import { ButtonUpload } from '../../molecules/Upload/upload';
 import { TextIcon } from '../../molecules/TypographyIcon/textIcon';
 
 import { useForm } from '../../../hooks/form';
@@ -138,7 +138,7 @@ export const FormPatient = ({ onSubmitRegister, handleChangeChecks, loading }) =
                   </Tooltip>
                 </Col>
               </Row>
-              <Upload label='Enviar arquivo do laudo médico' />
+              <ButtonUpload label='Enviar arquivo do laudo médico' />
             </Space>
           </TabPane>
 

@@ -9,7 +9,7 @@ import { Slider } from '../../atoms/Slider/slider';
 import { Tooltip } from '../../atoms/Tooltip/tooltip';
 import { Checkbox } from '../../atoms/Checkbox/checkbox';
 import { Select, Option } from '../../atoms/Select/select';
-import { Upload } from '../../molecules/Upload/upload';
+import { ButtonUpload } from '../../molecules/Upload/upload';
 import { TextIcon } from '../../molecules/TypographyIcon/textIcon';
 import { Box } from '../../molecules/Box/box';
 
@@ -59,7 +59,7 @@ export const FormPatientFinal = ({ onSubmitRegister, handleChangeChecks }) => {
                     </Tooltip>
                   </Col>
                 </Row>
-                <Upload label='Enviar arquivo do laudo médico' />
+                <ButtonUpload label='Enviar arquivo do laudo médico' />
               </Space>
             </TabPane>
 

@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@devexpress/dx-react-core": "^2.7.6",
+    "@devexpress/dx-react-scheduler": "^2.7.6",
+    "@devexpress/dx-react-scheduler-material-ui": "^2.7.6",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -28,7 +33,7 @@
     "web-vitals": "^1.0.1"
   },
   "engines": {
-    "node": "14.17.5"
+    "node": "14.17.6"
   },
   "scripts": {
     "start": "react-scripts start",

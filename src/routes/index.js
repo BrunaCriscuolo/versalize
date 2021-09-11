@@ -13,9 +13,11 @@ import Profile from '../pages/Profile/profile';
 import DashboardPsychologist from '../pages/Dashboard/psychologist';
 import DashboardPacient from '../pages/Dashboard/pacient';
 
+import Teste from '../pages/Teste';
 
 const Routes = () => (
   <Switch>
+    <Route path='/teste' exact component={Teste} />
     <Route path='/' exact component={Login} />
     <Route path='/login' exact component={Login} />
     <Route path='/cadastro/paciente' exact component={RegisterPatient} />

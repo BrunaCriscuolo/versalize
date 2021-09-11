@@ -7,7 +7,8 @@ import { LayoutBasePrivate } from '../templates/BasePrivate/basePrivate';
 
 const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
   const { token } = useSelector(({ auth }) => auth);
-  const typeUser = 'paciente';
+  // const typeUser = 'paciente';
+  const typeUser = 'psicologo';
 
   useEffect(() => {
     if (isPrivate && !token) {
@@ -17,23 +18,23 @@ const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
 
   return (
     <>
-      {isPrivate && token && (
-        <Route
-          {...rest}
-          render={props => (
-            <LayoutBasePrivate typeUser={typeUser}>
-              <Component {...props} />
-            </LayoutBasePrivate>
-          )} />
-      )}
 
-      {!isPrivate && (
+      <Route
+        {...rest}
+        render={props => (
+          <LayoutBasePrivate typeUser={typeUser}>
+            <Component {...props} />
+          </LayoutBasePrivate>
+        )} />
+
+
+      {/* {!isPrivate && (
         <Route
           {...rest}
           render={props => (
             <Component typeUser={typeUser} {...props} />
           )} />
-      )}
+      )} */}
     </>
   );
 };
